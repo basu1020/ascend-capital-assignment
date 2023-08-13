@@ -2,7 +2,7 @@ import AppContext from "./appContext";
 import { useState } from "react";
 
 const AppState = (props) => {
-    const host = 'http://localhost:5000'
+    const host = 'https://taskapp-backend.onrender.com/'
     const [loggedIN, setLoggedIN] = useState(false)
     const [user, setUser] = useState({
         name: "",
