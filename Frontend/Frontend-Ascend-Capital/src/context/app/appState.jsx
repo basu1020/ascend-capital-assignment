@@ -45,6 +45,11 @@ const AppState = (props) => {
             },
         })
         const json = await response.json()
+        setUser({
+            name: json.user.name,
+            email: json.user.email,
+            tasks: json.user.tasks
+        })
         return json
     }
 

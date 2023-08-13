@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
     const app_context = useContext(appContext)
-    const { loggedIN, setLoggedIN, getUserTasks } = app_context
+    const { loggedIN, setLoggedIN, getUserTasks, user } = app_context
     const navigate = useNavigate()
 
     const [tasks, setTasks] = useState([])
@@ -31,33 +31,48 @@ const Home = () => {
                 <p> Please Log In to see your tasks 👨‍💻</p>}
             {loggedIN &&
                 <div className='min-w-[100vw] w-auto h-full overflow-x-scroll'>
-                    <div className="bg-gray-800 text-white text-2xl h-full min-w-[100vw] w-auto flex flex-row">
-                        {tasks.map((element, index) => {
-                            return (
-                                <div className="flex flex-col h-full">
-                                    <div className="flex items-center mx-2 bg-gray-200 justify-between text-black">
-                                        <p>
-                                            List {index + 1}
-                                        </p>
-                                        <p className="cursor-pointer" onClick={() => {
-                                            setTasks([...tasks.slice(0, index),
-                                            [...tasks[index], "New Task"],
-                                            ...tasks.slice(index + 1)])
-                                        }}>
-                                            ➕
-                                        </p>
-                                    </div>
-                                    <div className="m-2 bg-gray-400 flex flex-col min-w-[300px]">
-                                        {element.map((elem, index) => {
-                                            return (
-                                                <div className="flex flex-row bg-gray-200 justify-between text-black text-lg">
-                                                    <p className='mx-2 text-xl'>{element[index]}</p>
-                                                </div>)
-                                        })}
-                                    </div>
+                    <div className="bg-gray-800 p-2 text-white text-2xl h-full min-w-[100vw] w-auto flex flex-row">
+                        {tasks.map((element, index) => (
+                            <div className="flex flex-col h-full" key={index}>
+                                <div className="flex items-center mx-2 bg-gray-200 justify-between text-black">
+                                    <p>
+                                        List {index + 1}
+                                    </p>
+                                    <p className="cursor-pointer" onClick={() => {
+                                        setTasks([...tasks.slice(0, index),
+                                        [...tasks[index], "New Task"],
+                                        ...tasks.slice(index + 1)])
+                                    }}>
+                                        ➕
+                                    </p>
                                 </div>
-                            )
-                        })}
+                                <div className="m-2 bg-gray-400 flex flex-col min-w-[300px]">
+                                    {element.map((elem, ind) => (
+                                        <div className="flex flex-row bg-gray-200 justify-between text-black text-lg" key={ind}>
+                                            <p
+                                                className='mx-2 text-xl'
+                                                contentEditable
+                                                onBlur={(event) => {
+                                                    const newValue = event.target.textContent;
+                                                    setTasks(prevTasks =>
+                                                        prevTasks.map((row, rIndex) =>
+                                                            rIndex === index
+                                                                ? row.map((e, eIndex) =>
+                                                                    eIndex === ind ? newValue : e
+                                                                )
+                                                                : row
+                                                        )
+                                                    )
+                                                    console.log(tasks)
+                                                }}
+                                            >
+                                                {elem}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
                         <div className="m-2 bg-gray-400 min-w-[200px] flex items-center justify-center text-6xl">
                             <p className='cursor-pointer' onClick={() => {
                                 setTasks([...tasks, []])
