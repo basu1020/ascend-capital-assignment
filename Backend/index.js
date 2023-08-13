@@ -17,8 +17,7 @@ const port = 5000
 dbConnect()
 
 app.get('/', async (req, res) => {
-    const allUsers = await userModel.find({})
-    res.status(200).json({message: "Hi, this is a backend created with expressjs and mongodb", allUsers})
+    res.status(200).json({message: "Hi, this is a backend created with expressjs and mongodb"})
 })
 
 app.post('/signup', signupValidator, signup)
