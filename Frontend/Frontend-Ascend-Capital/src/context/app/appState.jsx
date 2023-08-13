@@ -2,7 +2,7 @@ import AppContext from "./appContext";
 import { useState } from "react";
 
 const AppState = (props) => {
-    const host = 'https://taskapp-backend.onrender.com/'
+    const host = 'https://taskapp-backend.onrender.com'
     const [loggedIN, setLoggedIN] = useState(false)
     const [user, setUser] = useState({
         name: "",
@@ -24,7 +24,6 @@ const AppState = (props) => {
     }
 
     const signup = async (name, email, password) => {
-        console.log("I am here")
         const response = await fetch(`${host}/signup`, {
             method: "POST",
             headers: {
@@ -45,12 +44,7 @@ const AppState = (props) => {
             },
         })
         const json = await response.json()
-        setUser({
-            name: json.user.name,
-            email: json.user.email,
-            tasks: json.user.tasks
-        })
-        return json
+        return json.user.tasks
     }
 
     const updateTasks = async (newTasksStructure) => {

@@ -14,6 +14,7 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        e.target.classList.add('animate-bounce')
         if (password && password === confirmPassword) {
 
             try {
@@ -28,6 +29,7 @@ const Signup = () => {
         } else {
             alert("password and confirm password didn't match")
         }
+        e.target.classList.remove('animate-bounce')
     }
 
     useEffect(() => {

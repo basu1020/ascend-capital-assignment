@@ -8,10 +8,11 @@ const Login = () => {
 
     const navigate = useNavigate()
     const app_context = useContext(appContext)
-    const {login, user, setUser, loggedIN, setLoggedIN} = app_context
+    const {login,setLoggedIN} = app_context
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        e.target.classList.add('animate-bounce')
         if(email.length > 6 && password.length > 6) {
             const json = await login(email, password)
             if(json.authToken) {
@@ -26,6 +27,7 @@ const Login = () => {
         else {
             alert("please provide email and password of atleast 6 characters")
         }
+        e.target.classList.remove('animate-bounce')
     }
 
     useEffect(() => {
